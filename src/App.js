@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Sketch from "react-p5";
-
+var exp = 0.6;
+var incr = 10;
+var itera = window.innerWidth / (incr * 1.2);
 function expcurv(step) {
-  var exp = 2.5;
-  var incr = 2;
-  return Math.pow(step * incr, exp) / Math.pow(incr * 120, exp - 1);
+  return Math.pow(step * incr, exp) / Math.pow(incr * itera - incr, exp - 1);
 }
 export default class App extends Component {
   setup = (p5, canvasParentRef) => {
@@ -20,16 +20,16 @@ export default class App extends Component {
     p5.push();
     p5.translate(20, 0);
 
-    for (i = 1; i < 121; i++) {
+    for (i = 0; i < itera; i++) {
       //p5.rect(i*20, i*20,20,20);
-      p5.line(expcurv(i), 10, expcurv(i + 2.5), 200);
+      p5.line(expcurv(i), 10, expcurv(i), 200);
     }
 
     p5.pop();
     p5.translate(20, 0);
 
-    for (i = 0; i < 121; i++) {
-      p5.line(i * 2, 10, i * 2.5, 400);
+    for (i = 0; i < itera; i++) {
+      p5.line(i * incr, 201, i * incr, 400);
     }
     p5.fill(255);
     p5.textStyle(p5.BOLD);
